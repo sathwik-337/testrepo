@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackathon Project</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+
+  <style>
+    /* Basic styling (you can move this to style.css) */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background: #111;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+      text-align: center;
+      background: linear-gradient(to right, #111, #333);
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+    }
+
+    .btn {
+      margin-top: 2rem;
+      padding: 0.8rem 1.5rem;
+      background: #ff4757;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #e84118;
+    }
+
+    footer {
+      background: #111;
+      color: #bbb;
+      text-align: center;
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>Hackathon Team 🚀</h2>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to Our Hackathon Project</h1>
+    <p>We’re building something amazing together — fast, creative, and impactful.</p>
+    <button class="btn" onclick="alert('Let’s Build!')">Get Started</button>
+  </section>
+
+  <section id="about" style="padding: 3rem 2rem;">
+    <h2>About</h2>
+    <p>Our project solves real-world problems using innovative web technologies. Stay tuned for updates!</p>
+  </section>
+
+  <section id="features" style="padding: 3rem 2rem; background-color: #eee;">
+    <h2>Features</h2>
+    <ul>
+      <li>⚡ Fast and responsive design</li>
+      <li>🧠 Smart and efficient backend</li>
+      <li>🌍 Real impact with modern tech</li>
+    </ul>
+  </section>
+
+  <section id="contact" style="padding: 3rem 2rem;">
+    <h2>Contact Us</h2>
+    <p>Email: <a href="mailto:team@hackathon.com">team@hackathon.com</a></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Hackathon Team. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
