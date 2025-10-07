@@ -4,25 +4,53 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hackathon Project</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href  <header>
+    <h2>Hackathon Team 🚀</h2>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#places">Places</a>
+      <a href="#features">Features</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Discover Places Around You</h1>
+    <p>Find nearby stores, restaurants, parks, and interesting places with our location-powered platform!</p>
+    <button class="btn" onclick="getCurrentLocation()">Find My Location</button>
+  </section>>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script defer src="script.js"></script>
 
   <style>
-    /* Basic styling (you can move this to style.css) */
+    /* Enhanced styling with animations */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #f9f9f9;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: #333;
+      overflow-x: hidden;
     }
 
     header {
-      background: #111;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
       color: #fff;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     nav a {
@@ -30,10 +58,14 @@
       text-decoration: none;
       margin-left: 20px;
       font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
     }
 
     nav a:hover {
-      text-decoration: underline;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
     }
 
     .hero {
@@ -41,43 +73,206 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 80vh;
+      height: 100vh;
       text-align: center;
-      background: linear-gradient(to right, #111, #333);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+      animation: float 6s ease-in-out infinite;
     }
 
     .hero h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       margin-bottom: 1rem;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 3s ease infinite;
+      z-index: 1;
+      position: relative;
     }
 
     .hero p {
       font-size: 1.2rem;
       max-width: 600px;
+      z-index: 1;
+      position: relative;
+      opacity: 0.9;
     }
 
     .btn {
       margin-top: 2rem;
-      padding: 0.8rem 1.5rem;
-      background: #ff4757;
+      padding: 1rem 2rem;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
       border: none;
-      border-radius: 5px;
+      border-radius: 50px;
       color: #fff;
       font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+      position: relative;
     }
 
     .btn:hover {
-      background: #e84118;
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .gif-section {
+      padding: 4rem 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    .place-controls {
+      margin-bottom: 2rem;
+    }
+
+    .location-input {
+      margin-bottom: 1.5rem;
+    }
+
+    .location-input input {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      width: 300px;
+      margin-right: 1rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .location-input button {
+      padding: 1rem 2rem;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .location-input button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .place-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .category-btn {
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .gif-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .place-item {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .place-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .place-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .place-address {
+      color: #666;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .place-distance {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .status-message {
+      text-align: center;
+      padding: 2rem;
+      font-size: 1.1rem;
+      color: #666;
     }
 
     footer {
-      background: #111;
-      color: #bbb;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
       text-align: center;
-      padding: 1rem;
+      padding: 2rem;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .section {
+      padding: 4rem 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      margin: 2rem 0;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
   </style>
 </head>
@@ -98,28 +293,258 @@
     <button class="btn" onclick="alert('Let’s Build!')">Get Started</button>
   </section>
 
-  <section id="about" style="padding: 3rem 2rem;">
-    <h2>About</h2>
-    <p>Our project solves real-world problems using innovative web technologies. Stay tuned for updates!</p>
+  <section id="about" class="section">
+    <h2>About Our Location Platform</h2>
+    <p>Our innovative hackathon project helps you discover amazing places around you! Whether you're looking for restaurants, parks, stores, or points of interest, our platform uses advanced geolocation services to find exactly what you need nearby.</p>
   </section>
 
-  <section id="features" style="padding: 3rem 2rem; background-color: #eee;">
-    <h2>Features</h2>
-    <ul>
-      <li>⚡ Fast and responsive design</li>
-      <li>🧠 Smart and efficient backend</li>
-      <li>🌍 Real impact with modern tech</li>
+  <section id="places" class="gif-section">
+    <h2>Discover Places Near You</h2>
+    <div class="place-controls">
+      <div class="location-input">
+        <input type="text" id="locationSearch" placeholder="Enter a location..." />
+        <button onclick="searchByAddress()">📍 Search Location</button>
+      </div>
+      <div class="place-categories">
+        <button onclick="searchPlaces('restaurant')" class="category-btn">🍽️ Restaurants</button>
+        <button onclick="searchPlaces('hospital')" class="category-btn">🏥 Hospitals</button>
+        <button onclick="searchPlaces('gas_station')" class="category-btn">⛽ Gas Stations</button>
+        <button onclick="searchPlaces('atm')" class="category-btn">🏧 ATMs</button>
+        <button onclick="searchPlaces('park')" class="category-btn">🌳 Parks</button>
+        <button onclick="searchPlaces('shopping_mall')" class="category-btn">🛍️ Shopping</button>
+      </div>
+    </div>
+    <div id="mapContainer" style="width: 100%; height: 400px; margin: 2rem 0; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);"></div>
+    <div id="placesContainer" class="gif-container">
+      <!-- Places will be loaded here -->
+    </div>
+  </section>
+
+  <section id="features" class="section">
+    <h2>Amazing Features</h2>
+    <ul style="list-style: none; padding: 0;">
+      <li style="margin: 1rem 0; font-size: 1.2rem;">📍 Precise location detection and geocoding</li>
+      <li style="margin: 1rem 0; font-size: 1.2rem;">🗺️ Interactive maps with place markers</li>
+      <li style="margin: 1rem 0; font-size: 1.2rem;">🔍 Powered by Geoapify API for reliable location data</li>
+      <li style="margin: 1rem 0; font-size: 1.2rem;">🏪 Find restaurants, hospitals, parks, and more nearby</li>
+      <li style="margin: 1rem 0; font-size: 1.2rem;">🚀 Real-time search with beautiful UI</li>
     </ul>
   </section>
 
-  <section id="contact" style="padding: 3rem 2rem;">
-    <h2>Contact Us</h2>
-    <p>Email: <a href="mailto:team@hackathon.com">team@hackathon.com</a></p>
+  <section id="contact" class="section">
+    <h2>Get In Touch</h2>
+    <p style="font-size: 1.1rem;">Ready to collaborate? Let's create something amazing together!</p>
+    <p>Email: <a href="mailto:team@hackathon.com" style="color: #667eea; text-decoration: none; font-weight: 600;">team@hackathon.com</a></p>
   </section>
 
   <footer>
-    <p>© 2025 Hackathon Team. All rights reserved.</p>
+    <p>© 2025 Hackathon Team. All rights reserved. Powered by Geoapify API 🗺️</p>
   </footer>
+
+  <script>
+    // Geoapify API integration
+    const GEOAPIFY_API_KEY = '66253e40de054371bc087695603ec5f2';
+    const GEOAPIFY_BASE_URL = 'https://api.geoapify.com/v1';
+    let currentLocation = null;
+    let map = null;
+
+    // Load page and initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeMap();
+      
+      // Add enter key support for location search
+      document.getElementById('locationSearch').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          searchByAddress();
+        }
+      });
+    });
+
+    function initializeMap() {
+      // Initialize a simple map container
+      const mapContainer = document.getElementById('mapContainer');
+      mapContainer.innerHTML = '<div class="status-message">🗺️ Click "Find My Location" or enter an address to start exploring!</div>';
+    }
+
+    async function getCurrentLocation() {
+      const container = document.getElementById('placesContainer');
+      container.innerHTML = '<div class="status-message">📍 Getting your location...</div>';
+
+      if (!navigator.geolocation) {
+        container.innerHTML = '<div class="status-message">❌ Geolocation is not supported by this browser.</div>';
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          currentLocation = {
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          };
+          
+          // Reverse geocode to get address
+          try {
+            const response = await fetch(`${GEOAPIFY_BASE_URL}/geocode/reverse?lat=${currentLocation.lat}&lon=${currentLocation.lon}&apiKey=${GEOAPIFY_API_KEY}`);
+            const data = await response.json();
+            
+            if (data.features && data.features.length > 0) {
+              const address = data.features[0].properties.formatted;
+              document.getElementById('locationSearch').value = address;
+              displayMap(currentLocation.lat, currentLocation.lon);
+              container.innerHTML = '<div class="status-message">✅ Location found! Choose a category above to find nearby places.</div>';
+            }
+          } catch (error) {
+            console.error('Error getting address:', error);
+            displayMap(currentLocation.lat, currentLocation.lon);
+            container.innerHTML = '<div class="status-message">✅ Location found! Choose a category above to find nearby places.</div>';
+          }
+        },
+        (error) => {
+          let message = '';
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              message = '❌ Location access denied. Please enter an address manually.';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              message = '❌ Location information unavailable.';
+              break;
+            case error.TIMEOUT:
+              message = '❌ Location request timeout.';
+              break;
+            default:
+              message = '❌ An unknown error occurred.';
+              break;
+          }
+          container.innerHTML = `<div class="status-message">${message}</div>`;
+        }
+      );
+    }
+
+    async function searchByAddress() {
+      const address = document.getElementById('locationSearch').value.trim();
+      if (!address) return;
+
+      const container = document.getElementById('placesContainer');
+      container.innerHTML = '<div class="status-message">🔍 Searching for location...</div>';
+
+      try {
+        const response = await fetch(`${GEOAPIFY_BASE_URL}/geocode/search?text=${encodeURIComponent(address)}&apiKey=${GEOAPIFY_API_KEY}`);
+        const data = await response.json();
+
+        if (data.features && data.features.length > 0) {
+          const location = data.features[0].geometry.coordinates;
+          currentLocation = {
+            lat: location[1],
+            lon: location[0]
+          };
+          
+          displayMap(currentLocation.lat, currentLocation.lon);
+          container.innerHTML = '<div class="status-message">✅ Location found! Choose a category above to find nearby places.</div>';
+        } else {
+          container.innerHTML = '<div class="status-message">❌ Location not found. Please try a different address.</div>';
+        }
+      } catch (error) {
+        console.error('Error geocoding address:', error);
+        container.innerHTML = '<div class="status-message">❌ Error searching for location. Please try again.</div>';
+      }
+    }
+
+    function displayMap(lat, lon) {
+      const mapContainer = document.getElementById('mapContainer');
+      // Create a static map using Geoapify
+      const staticMapUrl = `${GEOAPIFY_BASE_URL}/staticmap?style=osm-bright&width=800&height=400&center=lonlat:${lon},${lat}&zoom=14&marker=lonlat:${lon},${lat};color:%23ff0000;size:medium&apiKey=${GEOAPIFY_API_KEY}`;
+      
+      mapContainer.innerHTML = `
+        <img src="${staticMapUrl}" 
+             alt="Map showing your location" 
+             style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;" 
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <div style="display: none; padding: 2rem; text-align: center; background: #f0f0f0; border-radius: 15px;">
+          📍 Map showing location: ${lat.toFixed(4)}, ${lon.toFixed(4)}
+        </div>
+      `;
+    }
+
+    async function searchPlaces(category) {
+      if (!currentLocation) {
+        document.getElementById('placesContainer').innerHTML = '<div class="status-message">📍 Please find your location first!</div>';
+        return;
+      }
+
+      const container = document.getElementById('placesContainer');
+      container.innerHTML = '<div class="status-message">🔍 Searching for nearby places...</div>';
+
+      try {
+        const response = await fetch(`${GEOAPIFY_BASE_URL}/places?categories=${category}&filter=circle:${currentLocation.lon},${currentLocation.lat},5000&bias=proximity:${currentLocation.lon},${currentLocation.lat}&limit=20&apiKey=${GEOAPIFY_API_KEY}`);
+        const data = await response.json();
+
+        if (data.features && data.features.length > 0) {
+          displayPlaces(data.features);
+        } else {
+          container.innerHTML = '<div class="status-message">😔 No places found in this category nearby. Try a different category!</div>';
+        }
+      } catch (error) {
+        console.error('Error searching places:', error);
+        container.innerHTML = '<div class="status-message">❌ Error searching for places. Please try again.</div>';
+      }
+    }
+
+    function displayPlaces(places) {
+      const container = document.getElementById('placesContainer');
+      
+      container.innerHTML = places.map(place => {
+        const props = place.properties;
+        const coords = place.geometry.coordinates;
+        const distance = calculateDistance(currentLocation.lat, currentLocation.lon, coords[1], coords[0]);
+        
+        return `
+          <div class="place-item">
+            <div class="place-name">${props.name || 'Unknown Place'}</div>
+            <div class="place-address">${props.formatted || props.address_line1 || 'Address not available'}</div>
+            <div class="place-distance">${distance.toFixed(1)} km away</div>
+            ${props.website ? `<div style="margin-top: 0.5rem;"><a href="${props.website}" target="_blank" style="color: #667eea; text-decoration: none;">🌐 Visit Website</a></div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371; // Radius of the Earth in kilometers
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Add some interactive effects
+    document.addEventListener('mousemove', function(e) {
+      const hero = document.querySelector('.hero');
+      const rect = hero.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      if (rect.top <= e.clientY && e.clientY <= rect.bottom) {
+        hero.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.1) 0%, transparent 50%), linear-gradient(135deg, #667eea 0%, #764ba2 100%)`;
+      }
+    });
+  </script>
 
 </body>
 </html>
